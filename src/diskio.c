@@ -8,14 +8,9 @@
 /*-----------------------------------------------------------------------*/
 
 #include "diskio.h"		/* FatFs lower layer API */
-#include "usbdisk.h"	/* Example: Header file of existing USB MSD control module */
-#include "atadrive.h"	/* Example: Header file of existing ATA harddisk control module */
-#include "sdcard.h"		/* Example: Header file of existing MMC/SDC contorl module */
 
 /* Definitions of physical drive number for each drive */
-#define ATA		0	/* Example: Map ATA harddisk to physical drive 0 */
-#define MMC		1	/* Example: Map MMC/SD card to physical drive 1 */
-#define USB		2	/* Example: Map USB MSD to physical drive 2 */
+#define MMC		0	/* Example: Map MMC/SD card to physical drive 1 */
 
 
 /*-----------------------------------------------------------------------*/
@@ -30,28 +25,16 @@ DSTATUS disk_status (
 	int result;
 
 	switch (pdrv) {
-	case ATA :
-		result = ATA_disk_status();
-
-		// translate the reslut code here
-
-		return stat;
-
 	case MMC :
-		result = MMC_disk_status();
+		result = 0;
 
 		// translate the reslut code here
+		stat = (DSTATUS)result;
 
 		return stat;
-
-	case USB :
-		result = USB_disk_status();
-
-		// translate the reslut code here
-
-		return stat;
+	default:
+		return STA_NOINIT;
 	}
-	return STA_NOINIT;
 }
 
 
@@ -68,24 +51,11 @@ DSTATUS disk_initialize (
 	int result;
 
 	switch (pdrv) {
-	case ATA :
-		result = ATA_disk_initialize();
-
-		// translate the reslut code here
-
-		return stat;
-
 	case MMC :
-		result = MMC_disk_initialize();
+		result = 0;
 
 		// translate the reslut code here
-
-		return stat;
-
-	case USB :
-		result = USB_disk_initialize();
-
-		// translate the reslut code here
+		stat = (DSTATUS)result;
 
 		return stat;
 	}
@@ -109,30 +79,13 @@ DRESULT disk_read (
 	int result;
 
 	switch (pdrv) {
-	case ATA :
-		// translate the arguments here
-
-		result = ATA_disk_read(buff, sector, count);
-
-		// translate the reslut code here
-
-		return res;
-
 	case MMC :
 		// translate the arguments here
 
-		result = MMC_disk_read(buff, sector, count);
+		result = 0;
 
 		// translate the reslut code here
-
-		return res;
-
-	case USB :
-		// translate the arguments here
-
-		result = USB_disk_read(buff, sector, count);
-
-		// translate the reslut code here
+		res = (DRESULT)result;
 
 		return res;
 	}
@@ -158,30 +111,13 @@ DRESULT disk_write (
 	int result;
 
 	switch (pdrv) {
-	case ATA :
-		// translate the arguments here
-
-		result = ATA_disk_write(buff, sector, count);
-
-		// translate the reslut code here
-
-		return res;
-
 	case MMC :
 		// translate the arguments here
 
-		result = MMC_disk_write(buff, sector, count);
+		result = 0;
 
 		// translate the reslut code here
-
-		return res;
-
-	case USB :
-		// translate the arguments here
-
-		result = USB_disk_write(buff, sector, count);
-
-		// translate the reslut code here
+		res = (DRESULT)result;
 
 		return res;
 	}
@@ -206,21 +142,9 @@ DRESULT disk_ioctl (
 	int result;
 
 	switch (pdrv) {
-	case ATA :
-
-		// Process of the command for the ATA drive
-
-		return res;
-
 	case MMC :
 
 		// Process of the command for the MMC/SD card
-
-		return res;
-
-	case USB :
-
-		// Process of the command the USB drive
 
 		return res;
 	}
